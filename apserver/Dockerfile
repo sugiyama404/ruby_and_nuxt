@@ -9,3 +9,7 @@ RUN apt-get update \
     git=1:2.20.1-2+deb10u8 \
     && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
+
+COPY . .
+WORKDIR /usr/src/app
+RUN bundle install

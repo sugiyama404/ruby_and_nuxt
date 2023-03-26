@@ -1,0 +1,26 @@
+name: "Test and deploy the application"
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - apserver/**
+      - .github/workflows/**
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker compose up -d
+      - name: unit test
+        run: |
+          docker compose exec apserver bundle exec rspec
+      - name: Docker Down
+        run: docker compose down
