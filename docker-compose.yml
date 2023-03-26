@@ -9,3 +9,18 @@ services:
       - ./apserver:/usr/src
     ports:
       - "3000:3000"
+  dbserver:
+    build: ./dbserver
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todoproject
+      MYSQL_USER: rubyMySql1
+      MYSQL_PASSWORD: rubyMySql1
+      TZ: 'Asia/Tokyo'
+    command: mysqld
+    volumes:
+      - ./dbserver/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - 3306:3306

@@ -46,4 +46,6 @@ group :development do
   # gem "spring"
 end
 
-gem "rspec-rails"
+gem "rspec-rails", "~> 6.0.1"
+gem "mysql2", "~> 0.5.5"
+
