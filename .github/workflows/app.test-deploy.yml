@@ -21,10 +21,10 @@ jobs:
         run: docker compose up -d
       - name: sleep for waiting launch db
         run: sleep 120s
-      - name: db migration
+      - name: start to db migration
         run: |
           docker compose exec apserver rails db:migrate
-      - name: unit test
+      - name: unit testting
         run: |
           docker compose exec apserver bundle exec rspec
       - name: Docker Down
