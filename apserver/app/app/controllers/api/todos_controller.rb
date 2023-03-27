@@ -17,7 +17,7 @@ class Api::TodosController < ApplicationController
     end
     def update
         if @todo.update(todo_params)
-            render status: :accepted
+            render status: :accepted #202
         else
             render status: :unprocessable_entity
         end
