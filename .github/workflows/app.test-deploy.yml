@@ -19,8 +19,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: docker compose up -d
-      - name: sleep for waiting launch db # ここを追加
-        run: sleep 1m
+      #- name: sleep for waiting launch db # ここを追加
+      #  run: sleep 120sec
       - name: unit test
         run: |
           docker compose exec apserver bundle exec rspec
