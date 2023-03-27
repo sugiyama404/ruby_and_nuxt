@@ -20,7 +20,7 @@ jobs:
       - name: Build the Docker image
         run: docker compose up -d
       - name: sleep for waiting launch db
-        run: sleep 120sec
+        run: sleep 120s
       - name: unit test
         run: |
           docker compose exec apserver bundle exec rspec
