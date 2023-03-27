@@ -9,8 +9,6 @@ services:
       - ./apserver:/usr/src
     ports:
       - "3000:3000"
-    depends_on:
-      - dbserver
   dbserver:
     build: ./dbserver
     container_name: mysql
