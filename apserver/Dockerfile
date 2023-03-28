@@ -19,3 +19,6 @@ RUN apt-get update \
 COPY . .
 WORKDIR /usr/src/app
 RUN bundle install
+
+CMD [ "rails", "s", "-b", "0.0.0.0","-p" "8080" ]
+EXPOSE 8080
