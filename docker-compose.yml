@@ -8,7 +8,14 @@ services:
     volumes:
       - ./apserver:/usr/src
     ports:
+      - "8080:8080"
+  webserver:
+    build: ./webserver
+    volumes:
+      - ./webserver:/usr/src/app
+    ports:
       - "3000:3000"
+    tty: true
   dbserver:
     build: ./dbserver
     container_name: mysql
