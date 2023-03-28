@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::Todos", type: :request do
   describe "POST /api/todos" do
-    it "check creat method" do
+    it "check create method" do
       valid_params = { content: "test_api" }
       header_params = { "Content-Type" => "application/json" }
       expect { post "/api/todos", params: valid_params.to_json, headers: header_params}.to change(Todo, :count).by(+1)
