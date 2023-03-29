@@ -133,7 +133,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-.npmrc
+webserver/myapp/.npmrc
 memo.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,ruby,nuxtjs,terraform
