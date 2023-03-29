@@ -2,8 +2,9 @@
 FROM node:18.15-buster-slim as development
 
 WORKDIR /usr/src/app/myapp
-COPY ./myapp .
+COPY ./myapp/package*.json ./
 RUN npm install
+COPY ./myapp .
 
 # dependent packages
 FROM node:18.15-buster-slim as dependent

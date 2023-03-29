@@ -17,7 +17,8 @@ services:
       context: ./webserver
       target: development
     volumes:
-      - ./webserver:/usr/src/app
+      - ./webserver/myapp:/usr/src/app/myapp
+      - /usr/src/app/myapp/node_modules
     command: npm run dev --spa
     environment:
       - WATCHPACK_POLLING=true
