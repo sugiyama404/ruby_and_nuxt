@@ -1,4 +1,5 @@
-FROM ruby:3.1.3-slim-buster
+# For development
+FROM ruby:3.1.3-slim-buster as development
 WORKDIR /usr/src
 
 ENV HOST dbserver
@@ -18,6 +19,13 @@ RUN apt-get update \
 COPY . .
 WORKDIR /usr/src/app
 RUN bundle install
+
+# For staging
+FROM development as staging
+
+RUN groupadd -r rails && useradd -r -g rails rails
+USER rails
+RUN chmod rails:rails /usr/src/app
 
 EXPOSE 8080
 
