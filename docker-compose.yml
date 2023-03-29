@@ -24,6 +24,12 @@ services:
     ports:
       - "3000:3000"
     tty: true
+  loadbalancer:
+    image: nginx:1.23.3-alpine-slim
+    ports:
+      - "80:80"
+    volumes:
+      - ./loadbalancer:/etc/nginx/conf.d:ro
   dbserver:
     build: ./dbserver
     container_name: mysql
