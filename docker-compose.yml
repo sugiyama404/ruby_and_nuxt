@@ -10,9 +10,14 @@ services:
     ports:
       - "8080:8080"
   webserver:
-    build: ./webserver
+    build:
+      context: ./webserver
+      target: Development
     volumes:
       - ./webserver:/usr/src/app
+    command: npm run dev --spa
+    environment:
+      - WATCHPACK_POLLING=true
     ports:
       - "3000:3000"
     tty: true
