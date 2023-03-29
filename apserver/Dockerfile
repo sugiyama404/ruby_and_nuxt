@@ -1,5 +1,4 @@
 FROM ruby:3.1.3-slim-buster
-
 WORKDIR /usr/src
 
 ENV HOST dbserver
@@ -23,4 +22,3 @@ RUN bundle install
 EXPOSE 8080
 
 CMD ["rails", "s", "-b", "0.0.0.0","-p", "8080"]
-
