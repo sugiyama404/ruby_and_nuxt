@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 # For development
 FROM ruby:3.1.3-slim-buster as development
+=======
+FROM ruby:3.1.3-slim-buster
+>>>>>>> origin/main
 WORKDIR /usr/src
 
 ENV HOST dbserver
@@ -20,6 +24,7 @@ COPY . .
 WORKDIR /usr/src/app
 RUN bundle install
 
+<<<<<<< HEAD
 # For staging
 FROM development as staging
 
@@ -27,6 +32,8 @@ RUN groupadd -r rails && useradd -r -g rails rails
 USER rails
 RUN chmod rails:rails /usr/src/app
 
+=======
+>>>>>>> origin/main
 EXPOSE 8080
 
 CMD ["rails", "s", "-b", "0.0.0.0","-p", "8080"]

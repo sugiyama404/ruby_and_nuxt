@@ -1,6 +1,7 @@
 version: "3"
 services:
   apserver:
+<<<<<<< HEAD
     build:
       context: ./apserver
       target: development
@@ -8,6 +9,12 @@ services:
     tty: true
     working_dir: /usr/src/app
     command: rails s -b 0.0.0.0 -p 8080
+=======
+    build: ./apserver
+    container_name: "ruby"
+    tty: true
+    working_dir: /usr/src/app
+>>>>>>> origin/main
     volumes:
       - ./apserver:/usr/src
     ports:
@@ -15,7 +22,11 @@ services:
   webserver:
     build:
       context: ./webserver
+<<<<<<< HEAD
       target: development
+=======
+      target: Development
+>>>>>>> origin/main
     volumes:
       - ./webserver:/usr/src/app
     command: npm run dev --spa
