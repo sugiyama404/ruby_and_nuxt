@@ -10,9 +10,7 @@ COPY ./myapp/package*.json ./
 RUN npm install
 COPY ./myapp .
 
-
 ENTRYPOINT [ "/docker-entrypoint" ]
-
 
 # dependent packages
 FROM node:18.15-buster-slim as dependent

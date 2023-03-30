@@ -3,17 +3,17 @@
 set -euo pipefail
 
 function tmp_file_exits() {
-  if [[ -d "/tmp/nitro" ]]; then
+  if [ "$(ls -A /tmp/nitro/)" ]; then
     rm /tmp/nitro/*
     echo "delete successful tmp file"
   else
     echo "file doesn't exits"
   fi
-  npm run dev --spa
 }
 
 function main() {
   tmp_file_exits
+  npm run dev --spa
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
