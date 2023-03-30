@@ -19,12 +19,8 @@ services:
     volumes:
       - ./webserver/myapp:/usr/src/app/myapp
       - /usr/src/app/myapp/node_modules
-    command: npm run dev --spa
-    environment:
-      - WATCHPACK_POLLING=true
     ports:
       - "3000:3000"
-    tty: true
   loadbalancer:
     image: nginx:1.22-bullseye
     ports:

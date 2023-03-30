@@ -1,10 +1,18 @@
 # For development
 FROM node:18.15-buster-slim as development
 
+COPY ./docker-entrypoint /docker-entrypoint
 WORKDIR /usr/src/app/myapp
+ENV WATCHPACK_POLLING=true
+ENV NODE_ENV development
+
 COPY ./myapp/package*.json ./
 RUN npm install
 COPY ./myapp .
+
+
+ENTRYPOINT [ "/docker-entrypoint" ]
+
 
 # dependent packages
 FROM node:18.15-buster-slim as dependent

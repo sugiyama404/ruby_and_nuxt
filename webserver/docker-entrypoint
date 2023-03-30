@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+function tmp_file_exits() {
+  if [[ -d "/tmp/nitro" ]]; then
+    rm /tmp/nitro/*
+    echo "delete successful tmp file"
+  else
+    echo "file doesn't exits"
+  fi
+  npm run dev --spa
+}
+
+function main() {
+  tmp_file_exits
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi
