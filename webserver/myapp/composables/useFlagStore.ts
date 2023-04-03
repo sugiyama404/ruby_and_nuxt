@@ -9,7 +9,7 @@ export const useFlagStore = () => {
     };
 };
 
-const setFlag = (flag: Ref<boolean>) => () => { flag.value = false }
+const setFlag = (flag: Ref<boolean>) => (val: boolean) => { flag.value = val };
 
 const deleteTodo = (flag: Ref<boolean>) => (num: string) => {
     const currentUrl = window.location.href

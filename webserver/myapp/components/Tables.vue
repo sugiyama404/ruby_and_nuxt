@@ -8,7 +8,7 @@ watch(flag, () => {
         const startMsec = new Date();
         while (new Date() - startMsec < 100);
         refresh();
-        setFlag();
+        setFlag(false);
     }
 })
 </script>
