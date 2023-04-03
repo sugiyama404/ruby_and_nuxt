@@ -1,19 +1,21 @@
 <script setup lang="ts">
 const currentUrl = window.location.href;
-const { data, pending, error, refresh } = useFetch(currentUrl + 'api/todos', { method: "get", });
+const { data, pending, error, refresh } = await useFetch(currentUrl + 'api/todos', { method: "get", });
 
-const { state, deleteTodo } = useFlagStore();
-watch(state.flag, () => alert('sucess!!'))
-
-// const { counter, inc, dec } = useSharedCounter();
-// watch(counter, () => alert('sussecc'))
+const { flag, setFlag, deleteTodo } = useFlagStore();
+watch(flag, () => {
+    if (flag) {
+        const startMsec = new Date();
+        while (new Date() - startMsec < 100);
+        refresh();
+        setFlag();
+    }
+})
 </script>
 
 <template>
     <div>
-        <p>{{ state.flag }}</p>
-        <!-- <p>{{ counter }}</p>
-                            <button @click="dec"></button> -->
+        <p>{{ flag }}</p>
         <p v-if="error">{{ error }}</p>
         <table border="1" width="500">
             <tbody>
