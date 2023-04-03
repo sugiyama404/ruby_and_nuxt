@@ -1,7 +1,7 @@
 class Api::TodosController < ApplicationController
     before_action :set_todo, only: [:show, :update, :destroy]
     def index
-        @todos = Todo.all
+        @todos = Todo.all.select(:id, :content)
         render status: :ok, json: @todos #200
     end
     def show

@@ -6,8 +6,7 @@ services:
       target: development
     container_name: "ruby"
     tty: true
-    working_dir: /usr/src/app
-    command: rails s -b 0.0.0.0 -p 8080
+    entrypoint: /usr/src/docker-entrypoint
     volumes:
       - ./apserver:/usr/src
     ports:
@@ -21,6 +20,7 @@ services:
       - /usr/src/app/myapp/node_modules
     ports:
       - "3000:3000"
+      - '24678:24678'
   loadbalancer:
     image: nginx:1.22-bullseye
     ports:

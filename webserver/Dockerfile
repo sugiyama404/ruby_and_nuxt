@@ -24,15 +24,16 @@ WORKDIR /app
 COPY ./myapp/package*.json ./
 RUN npm ci
 COPY ./myapp .
-RUN npm run build --spa
+RUN npm run build
 
 # For staging
 FROM gcr.io/distroless/nodejs18-debian11:nonroot as staging
 WORKDIR /app
 ENV NODE_ENV production
+ENV HOST 0.0.0.0
 
 COPY --from=build /app/public /app/public
-COPY --from=build --chown=nonroot:nonroot /app/.nuxt/dist /app/dist
+COPY --from=build --chown=nonroot:nonroot /app/.nuxt /app/.nuxt
 COPY --from=dependent /app/node_modules ./node_modules
 COPY ./myapp/package*.json ./
 

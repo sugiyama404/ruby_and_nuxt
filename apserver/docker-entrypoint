@@ -3,9 +3,9 @@
 set -euo pipefail
 
 function tmp_file_exits() {
-  if [ "$(ls -A /tmp/nitro/)" ]; then
-    rm /tmp/nitro/*
-    echo "delete successful tmp file"
+  if [ -e /usr/src/app/tmp/pids/server.pid ]; then
+    rm -f /usr/src/app/tmp/pids/server.pid
+    echo "delete successful server.pid file"
   else
     echo "file doesn't exits"
   fi
@@ -13,7 +13,8 @@ function tmp_file_exits() {
 
 function main() {
   tmp_file_exits
-  npm run dev
+  cd /usr/src/app/app
+  bundle exec rails s -p 8080 -b '0.0.0.0'
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
