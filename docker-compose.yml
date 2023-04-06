@@ -15,6 +15,7 @@ services:
     build:
       context: ./webserver
       target: development
+    container_name: nuxt3
     volumes:
       - ./webserver/myapp:/usr/src/app/myapp
       - /usr/src/app/myapp/node_modules
@@ -23,6 +24,7 @@ services:
       - '24678:24678'
   loadbalancer:
     image: nginx:1.22-bullseye
+    container_name: nginx
     ports:
       - "80:80"
     volumes:

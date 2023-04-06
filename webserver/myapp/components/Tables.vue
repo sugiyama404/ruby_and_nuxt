@@ -15,7 +15,6 @@ watch(flag, () => {
 
 <template>
     <div>
-        <p>{{ flag }}</p>
         <p v-if="error">{{ error }}</p>
         <table border="1" width="500">
             <tbody>
