@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+function terraform_destroy() {
+  local cwd="$1"
+  cd "${cwd}"
+  cd terraform
+
+  terraform destroy --auto-approve
+}
+
+function main() {
+  local cwd
+  cwd="$(cd "$(dirname "$0")/.." && pwd)"
+  terraform_destroy "${cwd}"
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi
