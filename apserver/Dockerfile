@@ -25,7 +25,7 @@ FROM development as staging
 
 RUN groupadd -r rails && useradd -r -g rails rails
 USER rails
-RUN chmod rails:rails /usr/src/app
+RUN chown -R rails:rails /usr/src/app
 
 EXPOSE 8080
 

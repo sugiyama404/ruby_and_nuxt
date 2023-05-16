@@ -41,7 +41,8 @@ module "network" {
 
 # s3
 module "s3" {
-  source = "./modules/s3"
+  source   = "./modules/s3"
+  app_name = var.app_name
 }
 
 # elb
@@ -69,14 +70,14 @@ module "ecr" {
 
 # Null Resource
 module "after_ecr" {
-  source                   = "./modules/bash"
-  region                   = var.region
-  web_app_name             = var.web_app_name
-  api_app_name             = var.api_app_name
-  web_app_dir_name         = var.web_app_dir_name
-  api_app_dir_name         = var.api_app_dir_name
-  api_alb_target_group_arn = module.elb.api_alb_target_group_arn
-  web_alb_target_group_arn = module.elb.web_alb_target_group_arn
+  source             = "./modules/bash"
+  region             = var.region
+  web_app_name       = var.web_app_name
+  api_app_name       = var.api_app_name
+  web_app_dir_name   = var.web_app_dir_name
+  api_app_dir_name   = var.api_app_dir_name
+  api_repository_url = module.ecr.api_repository_url
+  web_repository_url = module.ecr.web_repository_url
 }
 
 # rds
@@ -98,7 +99,7 @@ module "ecs" {
   subnet_p1a_id            = module.network.subnet_public_1a_id
   webserver_sg_id          = module.network.webserver_sg_id
   subnet_p1c_id            = module.network.subnet_public_1c_id
-  aws_iam_role             = module.iam.aws_iam_role
+  ecs_main_role            = module.iam.ecs_main_role
   db_endpoint              = module.rds.db_endpoint
   db_instance_name         = module.rds.db_instance_name
   db_name                  = module.rds.db_name

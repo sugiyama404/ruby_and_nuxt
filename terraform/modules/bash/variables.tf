@@ -3,6 +3,6 @@ variable "api_app_name" {}
 variable "api_app_dir_name" {}
 variable "web_app_name" {}
 variable "web_app_dir_name" {}
-variable "api_alb_target_group_arn" {}
-variable "web_alb_target_group_arn" {}
+variable "api_repository_url" {}
+variable "web_repository_url" {}
 variable "region" {}

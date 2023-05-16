@@ -5,7 +5,7 @@ variable "apserver_sg_id" {}
 variable "subnet_p1a_id" {}
 variable "webserver_sg_id" {}
 variable "subnet_p1c_id" {}
-variable "aws_iam_role" {}
+variable "ecs_main_role" {}
 variable "db_endpoint" {}
 variable "db_instance_name" {}
 variable "db_name" {}
