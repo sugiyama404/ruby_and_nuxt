@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+function tmp_file_exits() {
+  if [ -e /usr/src/app/tmp/pids/server.pid ]; then
+    rm -f /usr/src/app/tmp/pids/server.pid
+    echo "delete successful server.pid file"
+  else
+    echo "file doesn't exits"
+  fi
+}
+
+function main() {
+  tmp_file_exits
+  cd /usr/src/app/app
+  bundle exec rails s -p 8080 -b '0.0.0.0'
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi
