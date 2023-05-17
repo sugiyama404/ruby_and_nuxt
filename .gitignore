@@ -135,5 +135,6 @@ terraform.rc
 
 .npmrc
 memo.txt
+bin/apsever_docker_build
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,ruby,nuxtjs,terraform
