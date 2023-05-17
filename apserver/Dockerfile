@@ -24,9 +24,8 @@ RUN bundle install
 FROM development as staging
 
 RUN groupadd -r rails && useradd -r -g rails rails
-USER rails
 RUN chown -R rails:rails /usr/src/app
-
+USER rails
 EXPOSE 8080
 
 CMD ["rails", "s", "-b", "0.0.0.0","-p", "8080"]
