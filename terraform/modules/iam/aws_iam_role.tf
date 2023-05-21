@@ -5,7 +5,7 @@ resource "aws_iam_role" "main_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid : ""
+        Sid    = ""
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
