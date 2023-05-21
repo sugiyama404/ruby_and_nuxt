@@ -2,7 +2,7 @@ resource "aws_db_instance" "db-setting" {
   engine         = "mysql"
   engine_version = "8.0.31"
 
-  identifier = "rust-mysql"
+  identifier = "db-mysql"
 
   db_name  = var.db_name
   username = var.db_username
