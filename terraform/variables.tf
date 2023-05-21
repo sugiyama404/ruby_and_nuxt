@@ -111,18 +111,18 @@ variable "db_ports" {
 
 variable "db_name" {
   type        = string
-  description = "(optional) describe your variable"
+  description = "database name"
   default     = "todoproject"
 }
 
 variable "db_username" {
   type        = string
-  description = "(optional) describe your variable"
+  description = "database user name"
   default     = "rubyruby"
 }
 
 variable "db_password" {
   type        = string
-  description = "(optional) describe your variable"
+  description = "database password"
   default     = "rubyruby"
 }
