@@ -32,11 +32,9 @@ WORKDIR /app
 ENV NODE_ENV production
 ENV HOST 0.0.0.0
 
-COPY --from=build /app/public /app/public
-COPY --from=build --chown=nonroot:nonroot /app/.nuxt /app/.nuxt
-COPY --from=dependent /app/node_modules ./node_modules
-COPY ./myapp/package*.json ./
+COPY --from=build --chown=nonroot:nonroot /app/.output /app/.output
 
 USER nonroot
 EXPOSE 3000
-CMD [ "node_modules/.bin/nuxt", "start" ]
+
+CMD [ "/app/.output/server/index.mjs" ]

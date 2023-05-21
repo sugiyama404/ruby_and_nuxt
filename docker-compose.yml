@@ -12,10 +12,12 @@ services:
     ports:
       - "8080:8080"
   webserver:
+    #build: ./webserver
     build:
       context: ./webserver
       target: development
     container_name: nuxt3
+    tty: true
     volumes:
       - ./webserver/myapp:/usr/src/app/myapp
       - /usr/src/app/myapp/node_modules
