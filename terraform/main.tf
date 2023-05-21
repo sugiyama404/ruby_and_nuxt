@@ -87,6 +87,9 @@ module "rds" {
   sg_rds_sg_id = module.network.sg_rds_sg_id
   db_ports     = var.db_ports
   app_name     = var.app_name
+  db_name      = var.db_name
+  db_username  = var.db_username
+  db_password  = var.db_password
 }
 
 # ECS
@@ -101,10 +104,9 @@ module "ecs" {
   subnet_p1c_id            = module.network.subnet_public_1c_id
   ecs_main_role            = module.iam.ecs_main_role
   db_endpoint              = module.rds.db_endpoint
-  db_instance_name         = module.rds.db_instance_name
-  db_name                  = module.rds.db_name
-  db_username              = module.rds.db_username
-  db_password              = module.rds.db_password
+  db_name                  = var.db_name
+  db_username              = var.db_username
+  db_password              = var.db_password
   api_alb_target_group_arn = module.elb.api_alb_target_group_arn
   web_alb_target_group_arn = module.elb.web_alb_target_group_arn
   web_ports                = var.web_ports

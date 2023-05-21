@@ -7,7 +7,6 @@ variable "webserver_sg_id" {}
 variable "subnet_p1c_id" {}
 variable "ecs_main_role" {}
 variable "db_endpoint" {}
-variable "db_instance_name" {}
 variable "db_name" {}
 variable "db_username" {}
 variable "db_password" {}

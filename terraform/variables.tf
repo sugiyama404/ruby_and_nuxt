@@ -108,3 +108,21 @@ variable "db_ports" {
     }
   ]
 }
+
+variable "db_name" {
+  type        = string
+  description = "(optional) describe your variable"
+  default     = "todoproject"
+}
+
+variable "db_username" {
+  type        = string
+  description = "(optional) describe your variable"
+  default     = "rubyruby"
+}
+
+variable "db_password" {
+  type        = string
+  description = "(optional) describe your variable"
+  default     = "rubyruby"
+}

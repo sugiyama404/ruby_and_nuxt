@@ -13,5 +13,4 @@ resource "aws_lb" "alb" {
     prefix  = "access-log"
     enabled = true
   }
-
 }
