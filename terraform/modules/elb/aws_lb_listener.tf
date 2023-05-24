@@ -4,7 +4,7 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_lb_target_group.web_alb_target_group.arn
+    target_group_arn = aws_lb_target_group.web_blue.arn
     type             = "forward"
   }
 }

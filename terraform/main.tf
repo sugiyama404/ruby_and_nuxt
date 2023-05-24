@@ -94,22 +94,34 @@ module "rds" {
 
 # ECS
 module "ecs" {
-  source                   = "./modules/ecs"
-  app_name                 = var.app_name
-  web_app_name             = var.web_app_name
-  api_app_name             = var.api_app_name
-  apserver_sg_id           = module.network.apserver_sg_id
-  subnet_p1a_id            = module.network.subnet_public_1a_id
-  webserver_sg_id          = module.network.webserver_sg_id
-  subnet_p1c_id            = module.network.subnet_public_1c_id
-  ecs_main_role            = module.iam.ecs_main_role
-  db_endpoint              = module.rds.db_endpoint
-  db_name                  = var.db_name
-  db_username              = var.db_username
-  db_password              = var.db_password
-  api_alb_target_group_arn = module.elb.api_alb_target_group_arn
-  web_alb_target_group_arn = module.elb.web_alb_target_group_arn
-  web_ports                = var.web_ports
-  api_ports                = var.api_ports
-  http_arn                 = module.elb.http_arn
+  source             = "./modules/ecs"
+  app_name           = var.app_name
+  web_app_name       = var.web_app_name
+  api_app_name       = var.api_app_name
+  apserver_sg_id     = module.network.apserver_sg_id
+  subnet_p1a_id      = module.network.subnet_public_1a_id
+  webserver_sg_id    = module.network.webserver_sg_id
+  subnet_p1c_id      = module.network.subnet_public_1c_id
+  ecs_main_role      = module.iam.ecs_main_role
+  db_endpoint        = module.rds.db_endpoint
+  db_name            = var.db_name
+  db_username        = var.db_username
+  db_password        = var.db_password
+  api_blue_arn       = module.elb.api_blue_arn
+  web_blue_arn       = module.elb.web_blue_arn
+  api_green_arn      = module.elb.api_green_arn
+  web_green_arn      = module.elb.web_green_arn
+  web_ports          = var.web_ports
+  api_ports          = var.api_ports
+  http_arn           = module.elb.http_arn
+  api_repository_url = module.ecr.api_repository_url
+  web_repository_url = module.ecr.web_repository_url
 }
+
+# codepipeline
+# module "codepipeline" {
+#   source       = "./modules/codepipeline"
+#   app_name     = var.app_name
+#   web_app_name = var.web_app_name
+#   api_app_name = var.api_app_name
+# }

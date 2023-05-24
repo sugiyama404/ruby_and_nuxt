@@ -13,6 +13,10 @@ variable "db_password" {}
 variable "web_ports" {}
 variable "api_ports" {}
 variable "http_arn" {}
-variable "api_alb_target_group_arn" {}
-variable "web_alb_target_group_arn" {}
+variable "api_blue_arn" {}
+variable "web_blue_arn" {}
+variable "api_green_arn" {}
+variable "web_green_arn" {}
+variable "api_repository_url" {}
+variable "web_repository_url" {}
 data "aws_caller_identity" "self" {}

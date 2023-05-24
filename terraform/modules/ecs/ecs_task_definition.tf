@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "api-definition" {
   container_definitions = jsonencode([
     {
       name      = "${var.api_app_name}"
-      image     = "${data.aws_caller_identity.self.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/${var.api_app_name}:latest"
+      image     = "${var.api_repository_url}:latest"
       cpu       = 10
       memory    = 256
       essential = true
@@ -71,7 +71,7 @@ resource "aws_ecs_task_definition" "web-definition" {
   container_definitions = jsonencode([
     {
       name      = "${var.web_app_name}"
-      image     = "${data.aws_caller_identity.self.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/${var.web_app_name}:latest"
+      image     = "${var.web_repository_url}:latest"
       cpu       = 10
       memory    = 256
       essential = true
