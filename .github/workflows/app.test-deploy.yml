@@ -5,18 +5,28 @@ on:
     branches: ["main"]
     paths:
       - apserver/**
-      - .github/workflows/**
+      - webserver/**
+      - terraform/**
   workflow_dispatch:
 
 defaults:
   run:
     shell: bash
 
+env:
+  AWS_REGION: ap-northeast-1
+  AWSWEB_IDENTITY_TOKEN_FILE: /tmp/awscreds
+  CODECOMMIT_REPO_URL: "https://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/todolist-repository"
+  IMAGE_TAG: latest
+  API_ECR_REPOSITORY: apiserver
+  WEB_ECR_REPOSITORY: webserver
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      # test phase
       - name: Build the Docker image
         run: docker compose up -d
       - name: sleep for waiting launch db
@@ -29,3 +39,33 @@ jobs:
           docker compose exec apserver bundle exec rspec
       - name: Docker Down
         run: docker compose down
+
+      - name: AWS Configure Credentials.
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          role-session-name: githubActionsAession
+      # push to codecommit
+      - name: Configure git
+        run: |
+          git config --global credential.helper '!aws codecommit credential-helper $@'
+          git config --global credential.UseHttpPath true
+
+      - name: Push to AWS CodeCommit
+        run: |
+          git remote add codecommit ${{ env.CODECOMMIT_REPO_URL }}
+          git push codecommit main:main -f
+
+      # ecr
+      - uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr
+      - name: build and push docker image to ecr
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: newworld
+        run: |
+          docker build -t $ECR_REGISTRY/$API_ECR_REPOSITORY:$IMAGE_TAG ./apserver
+          docker build -t $ECR_REGISTRY/$WEB_ECR_REPOSITORY:$IMAGE_TAG ./webserver
+          docker push $ECR_REGISTRY/$API_ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$WEB_ECR_REPOSITORY:$IMAGE_TAG

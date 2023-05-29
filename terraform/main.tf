@@ -119,9 +119,19 @@ module "ecs" {
 }
 
 # codepipeline
-# module "codepipeline" {
-#   source       = "./modules/codepipeline"
-#   app_name     = var.app_name
-#   web_app_name = var.web_app_name
-#   api_app_name = var.api_app_name
-# }
+module "codepipeline" {
+  source             = "./modules/codepipeline"
+  app_name           = var.app_name
+  web_app_name       = var.web_app_name
+  api_app_name       = var.api_app_name
+  api_blue_arn       = module.elb.api_blue_arn
+  web_blue_arn       = module.elb.web_blue_arn
+  api_green_arn      = module.elb.api_green_arn
+  web_green_arn      = module.elb.web_green_arn
+  http_arn           = module.elb.http_arn
+  cluster-name       = module.ecs.cluster-name
+  api-service-name   = module.ecs.api-service-name
+  web-service-name   = module.ecs.web-service-name
+  api-definition-arn = module.ecs.api-definition-arn
+  web-definition-arn = module.ecs.web-definition-arn
+}
