@@ -20,6 +20,13 @@ resource "aws_ecs_service" "api-service" {
     container_port   = var.api_ports[0].internal
   }
 
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count, task_definition, load_balancer]
+  }
 }
 
 # EcsService for Fargate web
@@ -41,6 +48,13 @@ resource "aws_ecs_service" "web-service" {
     subnets          = ["${var.subnet_p1c_id}"]
     security_groups  = ["${var.webserver_sg_id}"]
     assign_public_ip = true
+  }
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count, task_definition, load_balancer]
   }
 
 }

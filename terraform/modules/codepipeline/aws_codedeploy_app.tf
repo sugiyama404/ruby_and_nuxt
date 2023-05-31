@@ -31,8 +31,8 @@ resource "aws_codedeploy_deployment_group" "web" {
   }
 
   ecs_service {
-    cluster_name = var.ecs-cluster-name
-    service_name = var.web-service-names
+    cluster_name = var.cluster-name
+    service_name = var.web-service-name
   }
 
   load_balancer_info {
@@ -81,7 +81,7 @@ resource "aws_codedeploy_deployment_group" "api" {
   }
 
   ecs_service {
-    cluster_name = var.ecs-cluster-name
+    cluster_name = var.cluster-name
     service_name = var.api-service-name
   }
 

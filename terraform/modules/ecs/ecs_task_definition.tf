@@ -11,8 +11,8 @@ resource "aws_ecs_task_definition" "api-definition" {
     {
       name      = "${var.api_app_name}"
       image     = "${var.api_repository_url}:latest"
-      cpu       = 10
-      memory    = 256
+      cpu       = 256
+      memory    = 512
       essential = true
       portMappings = [
         {
@@ -72,8 +72,8 @@ resource "aws_ecs_task_definition" "web-definition" {
     {
       name      = "${var.web_app_name}"
       image     = "${var.web_repository_url}:latest"
-      cpu       = 10
-      memory    = 256
+      cpu       = 256
+      memory    = 512
       essential = true
       portMappings = [
         {

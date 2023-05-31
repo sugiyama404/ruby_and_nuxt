@@ -5,6 +5,6 @@ Resources:
       Properties:
         TaskDefinition: "<TASK_DEFINITION>"
         LoadBalancerInfo:
-          ContainerName: "newworld"
-          ContainerPort: 80
+          ContainerName: "webserver"
+          ContainerPort: 3000
         PlatformVersion: "1.4.0"
