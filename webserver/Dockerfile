@@ -12,17 +12,11 @@ COPY ./myapp .
 
 ENTRYPOINT [ "/docker-entrypoint" ]
 
-# dependent packages
-FROM node:18.15-buster-slim as dependent
-WORKDIR /app
-COPY ./myapp/package*.json ./
-RUN npm ci --only=production
-
 # For build
 FROM node:18.15-buster-slim as build
 WORKDIR /app
 COPY ./myapp/package*.json ./
-RUN npm ci
+RUN npm ci -omit=dev
 COPY ./myapp .
 RUN npm run build
 
