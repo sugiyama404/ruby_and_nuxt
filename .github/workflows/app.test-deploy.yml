@@ -4,10 +4,15 @@ on:
   push:
     branches: ["main"]
     paths:
+      - .github/workflows/**
       - apserver/**
       - webserver/**
       - terraform/**
   workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 defaults:
   run:
@@ -40,13 +45,13 @@ jobs:
       - name: Docker Down
         run: docker compose down
 
+      # push to codecommit
       - name: AWS Configure Credentials.
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
           role-session-name: githubActionsAession
-      # push to codecommit
       - name: Configure git
         run: |
           git config --global credential.helper '!aws codecommit credential-helper $@'
