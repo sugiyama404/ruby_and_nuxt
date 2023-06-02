@@ -15,9 +15,9 @@ ENTRYPOINT [ "/docker-entrypoint" ]
 # For build
 FROM node:18.15-buster-slim as build
 WORKDIR /app
-COPY ./myapp/package*.json /app
-RUN npm ci -omit=dev
-COPY ./myapp /app
+COPY ./myapp/package*.json ./
+RUN npm ci
+COPY ./myapp .
 RUN npm run build
 
 # For staging
