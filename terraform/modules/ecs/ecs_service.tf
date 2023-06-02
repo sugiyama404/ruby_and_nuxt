@@ -24,6 +24,12 @@ resource "aws_ecs_service" "api-service" {
     type = "CODE_DEPLOY"
   }
 
+  capacity_provider_strategy {
+    base              = 1
+    weight            = 100
+    capacity_provider = "FARGATE"
+  }
+
   lifecycle {
     ignore_changes = [desired_count, task_definition, load_balancer]
   }
@@ -53,8 +59,13 @@ resource "aws_ecs_service" "web-service" {
     type = "CODE_DEPLOY"
   }
 
+  capacity_provider_strategy {
+    base              = 1
+    weight            = 100
+    capacity_provider = "FARGATE"
+  }
+
   lifecycle {
     ignore_changes = [desired_count, task_definition, load_balancer]
   }
-
 }

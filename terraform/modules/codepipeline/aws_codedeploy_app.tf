@@ -6,7 +6,7 @@ resource "aws_codedeploy_app" "main" {
 resource "aws_codedeploy_deployment_group" "web" {
   app_name               = aws_codedeploy_app.main.name
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
-  deployment_group_name  = var.app_name
+  deployment_group_name  = var.web_app_name
   service_role_arn       = aws_iam_role.codedeploy-role.arn
 
   auto_rollback_configuration {
@@ -31,8 +31,8 @@ resource "aws_codedeploy_deployment_group" "web" {
   }
 
   ecs_service {
-    cluster_name = var.cluster-name
-    service_name = var.web-service-name
+    cluster_name = "todolist-cluster"
+    service_name = "webserver-service"
   }
 
   load_balancer_info {
@@ -56,7 +56,7 @@ resource "aws_codedeploy_deployment_group" "web" {
 resource "aws_codedeploy_deployment_group" "api" {
   app_name               = aws_codedeploy_app.main.name
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
-  deployment_group_name  = var.app_name
+  deployment_group_name  = var.api_app_name
   service_role_arn       = aws_iam_role.codedeploy-role.arn
 
   auto_rollback_configuration {
@@ -81,8 +81,8 @@ resource "aws_codedeploy_deployment_group" "api" {
   }
 
   ecs_service {
-    cluster_name = var.cluster-name
-    service_name = var.api-service-name
+    cluster_name = "todolist-cluster"
+    service_name = "apiserver-service"
   }
 
   load_balancer_info {
