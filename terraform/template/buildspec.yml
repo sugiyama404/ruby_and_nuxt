@@ -12,27 +12,31 @@ phases:
       - API_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_API_REPOSITORY
   build:
     commands:
+      - cp terraform/template/web_appspec.yml $CODEBUILD_SRC_DIR_BuildArtifact1/appspec.yml
+      - cp terraform/template/api_appspec.yml $CODEBUILD_SRC_DIR_BuildArtifact2/appspec.yml
+      - cd $CODEBUILD_SRC_DIR_BuildArtifact1
       - $(aws ecs describe-task-definition --task-definition $ECS_WEB_TASK_DEFINITION_ARN --query taskDefinition | jq '.containerDefinitions[0].image="<IMAGE1_NAME>"' > taskdef.json)
       - printf '{"Version":"1.0","ImageURI":"%s"}' $WEB_REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
-      - cp terraform/template/web_appspec.yml appspec.yml
-      - cd $CODEBUILD_SRC_DIR_BuildArtifact2
+
+      - cd ../$CODEBUILD_SRC_DIR_BuildArtifact2
       - printf '{"Version":"1.0","ImageURI":"%s"}' $API_REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
       - $(aws ecs describe-task-definition --task-definition $ECS_API_TASK_DEFINITION_ARN --query taskDefinition | jq '.containerDefinitions[0].image="<IMAGE1_NAME>"' > taskdef.json)
-      - cp terraform/template/api_appspec.yml appspec.yml
 
 artifacts:
   files:
     - "**/*"
   secondary-artifacts:
-    artifact1:
-      base-directory: $CODEBUILD_SRC_DIR
+    BuildArtifact1:
+      base-directory: $CODEBUILD_SRC_DIR_BuildArtifact1
       files:
         - appspec.yml
         - taskdef.json
         - imageDetail.json
-    artifact2:
+      name: BuildArtifact1
+    BuildArtifact2:
       base-directory: $CODEBUILD_SRC_DIR_BuildArtifact2
       files:
         - appspec.yml
         - taskdef.json
         - imageDetail.json
+      name: BuildArtifact2
