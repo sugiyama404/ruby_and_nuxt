@@ -28,14 +28,14 @@ artifacts:
   files:
     - "**.*"
   secondary-artifacts:
-    artifact1:
+    BuildArtifact1:
       base-directory: $CODEBUILD_SRC_DIR/BuildArtifact1
       files:
         - appspec.yml
         - taskdef.json
         - imageDetail.json
       name: BuildArtifact1
-    artifact2:
+    BuildArtifact2:
       base-directory: $CODEBUILD_SRC_DIR/BuildArtifact2
       files:
         - appspec.yml
