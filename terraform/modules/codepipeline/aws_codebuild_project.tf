@@ -12,20 +12,25 @@ resource "aws_codebuild_project" "main" {
     buildspec = "terraform/template/buildspec.yml"
   }
 
-  # secondary_artifacts = [
-  #   {
-  #     "type"                = "S3"
-  #     "artifact_identifier" = "BuildArtifact1"
-  #     "name"                = "BuildArtifact1"
-  #     "namespace_type"      = "BUILD_ID"
-  #   },
-  #   {
-  #     "type"                = "S3"
-  #     "artifact_identifier" = "BuildArtifact2"
-  #     "name"                = "BuildArtifact2"
-  #     "namespace_type"      = "BUILD_ID"
-  #   },
-  # ]
+  secondary_artifacts {
+    type                = "S3"
+    artifact_identifier = "BuildArtifact1"
+    name                = "BuildArtifact1"
+    location            = aws_s3_bucket.codepipeline_bucket.id
+    path                = "${aws_s3_bucket.codepipeline_bucket.id}/BuildArtifact1"
+    packaging           = "ZIP"
+    namespace_type      = "BUILD_ID"
+  }
+
+  secondary_artifacts {
+    type                = "S3"
+    artifact_identifier = "BuildArtifact2"
+    name                = "BuildArtifact2"
+    location            = aws_s3_bucket.codepipeline_bucket.id
+    path                = "${aws_s3_bucket.codepipeline_bucket.id}/BuildArtifact2"
+    packaging           = "ZIP"
+    namespace_type      = "BUILD_ID"
+  }
 
   environment {
     compute_type    = "BUILD_GENERAL1_SMALL"

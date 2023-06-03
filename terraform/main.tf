@@ -119,6 +119,8 @@ module "ecs" {
 }
 
 # codepipeline
+# ECSのサービスの立ち上げを待つ為、以下コメントアウトしたままapplyをして、成功後再度applyする。
+
 module "codepipeline" {
   source             = "./modules/codepipeline"
   app_name           = var.app_name
