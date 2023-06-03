@@ -12,6 +12,8 @@ phases:
       - API_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_API_REPOSITORY
   build:
     commands:
+      - mkdir -p $CODEBUILD_SRC_DIR/BuildArtifact1
+      - mkdir -p $CODEBUILD_SRC_DIR/BuildArtifact2
       - cp terraform/template/web_appspec.yml $CODEBUILD_SRC_DIR/BuildArtifact1/appspec.yml
       - cp terraform/template/api_appspec.yml $CODEBUILD_SRC_DIR/BuildArtifact2/appspec.yml
       - cd $CODEBUILD_SRC_DIR/BuildArtifact1
