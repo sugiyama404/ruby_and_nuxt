@@ -31,17 +31,33 @@ resource "aws_codepipeline" "codepipeline" {
   stage {
     name = "Build"
 
+    # webserver
     action {
-      name             = "Build"
+      name             = "WEB_Build"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
       input_artifacts  = ["SourceArtifact"]
-      output_artifacts = ["BuildArtifact1", "BuildArtifact2"]
+      output_artifacts = ["BuildArtifact1"]
       version          = "1"
 
       configuration = {
-        ProjectName = aws_codebuild_project.main.name
+        ProjectName = aws_codebuild_project.web.name
+      }
+    }
+
+    # apisever
+    action {
+      name             = "API_Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      input_artifacts  = ["SourceArtifact"]
+      output_artifacts = ["BuildArtifact2"]
+      version          = "1"
+
+      configuration = {
+        ProjectName = aws_codebuild_project.api.name
       }
     }
   }

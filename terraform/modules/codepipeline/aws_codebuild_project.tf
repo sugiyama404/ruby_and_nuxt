@@ -1,6 +1,6 @@
-resource "aws_codebuild_project" "main" {
-  name         = "${var.app_name}-codebuild"
-  description  = "codebuild_project for ${var.app_name}"
+resource "aws_codebuild_project" "web" {
+  name         = "${var.app_name}-web-codebuild"
+  description  = "codebuild_project for web ${var.app_name}"
   service_role = aws_iam_role.codebuild-role.arn
 
   artifacts {
@@ -9,27 +9,7 @@ resource "aws_codebuild_project" "main" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = "terraform/template/buildspec.yml"
-  }
-
-  secondary_artifacts {
-    type                = "S3"
-    artifact_identifier = "BuildArtifact1"
-    name                = "BuildArtifact1"
-    location            = aws_s3_bucket.codepipeline_bucket.id
-    path                = "${aws_s3_bucket.codepipeline_bucket.id}/BuildArtifact1"
-    packaging           = "ZIP"
-    namespace_type      = "BUILD_ID"
-  }
-
-  secondary_artifacts {
-    type                = "S3"
-    artifact_identifier = "BuildArtifact2"
-    name                = "BuildArtifact2"
-    location            = aws_s3_bucket.codepipeline_bucket.id
-    path                = "${aws_s3_bucket.codepipeline_bucket.id}/BuildArtifact2"
-    packaging           = "ZIP"
-    namespace_type      = "BUILD_ID"
+    buildspec = "terraform/template/web_buildspec.yml"
   }
 
   environment {
@@ -50,6 +30,33 @@ resource "aws_codebuild_project" "main" {
     environment_variable {
       name  = "ECS_WEB_TASK_DEFINITION_ARN"
       value = var.web-definition-arn
+    }
+  }
+}
+
+resource "aws_codebuild_project" "api" {
+  name         = "${var.app_name}-api-codebuild"
+  description  = "codebuild_project for api ${var.app_name}"
+  service_role = aws_iam_role.codebuild-role.arn
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+
+  source {
+    type      = "CODEPIPELINE"
+    buildspec = "terraform/template/api_buildspec.yml"
+  }
+
+  environment {
+    compute_type    = "BUILD_GENERAL1_SMALL"
+    image           = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+    type            = "LINUX_CONTAINER"
+    privileged_mode = true
+
+    environment_variable {
+      name  = "AWS_ACCOUNT_ID"
+      value = data.aws_caller_identity.self.account_id
     }
     environment_variable {
       name  = "ECR_API_REPOSITORY"
