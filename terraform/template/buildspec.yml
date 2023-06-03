@@ -23,18 +23,19 @@ phases:
       - $(aws ecs describe-task-definition --task-definition $ECS_API_TASK_DEFINITION_ARN --query taskDefinition | jq '.containerDefinitions[0].image="<IMAGE1_NAME>"' > taskdef.json)
 
 artifacts:
+  base-directory: ${CODEBUILD_SRC_DIR}/
   files:
     - "**/*"
   secondary-artifacts:
     BuildArtifact1:
-      base-directory: $CODEBUILD_SRC_DIR_BuildArtifact1
+      base-directory: DIR_BuildArtifact1/
       files:
         - appspec.yml
         - taskdef.json
         - imageDetail.json
       name: BuildArtifact1
     BuildArtifact2:
-      base-directory: $CODEBUILD_SRC_DIR_BuildArtifact2
+      base-directory: DIR_BuildArtifact2/
       files:
         - appspec.yml
         - taskdef.json
