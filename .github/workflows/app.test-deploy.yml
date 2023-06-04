@@ -7,7 +7,6 @@ on:
       - .github/workflows/**
       - apserver/**
       - webserver/**
-      - terraform/**
   workflow_dispatch:
 
 permissions:
