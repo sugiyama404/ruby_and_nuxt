@@ -29,7 +29,7 @@ resource "aws_codebuild_project" "web" {
     }
     environment_variable {
       name  = "ECS_WEB_TASK_DEFINITION_ARN"
-      value = var.web-definition-arn
+      value = "${var.web_app_name}-definition"
     }
   }
 }
@@ -64,7 +64,7 @@ resource "aws_codebuild_project" "api" {
     }
     environment_variable {
       name  = "ECS_API_TASK_DEFINITION_ARN"
-      value = var.api-definition-arn
+      value = "${var.api_app_name}-definition"
     }
   }
 }

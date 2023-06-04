@@ -42,11 +42,11 @@ resource "aws_codedeploy_deployment_group" "web" {
       }
 
       target_group {
-        name = var.web_blue_arn
+        name = var.web_blue_name
       }
 
       target_group {
-        name = var.web_green_arn
+        name = var.web_green_name
       }
     }
   }
@@ -92,11 +92,11 @@ resource "aws_codedeploy_deployment_group" "api" {
       }
 
       target_group {
-        name = var.api_blue_arn
+        name = var.api_blue_name
       }
 
       target_group {
-        name = var.api_green_arn
+        name = var.api_green_name
       }
     }
   }

@@ -131,6 +131,10 @@ module "codepipeline" {
   api_green_arn      = module.elb.api_green_arn
   web_green_arn      = module.elb.web_green_arn
   http_arn           = module.elb.http_arn
+  api_blue_name      = module.elb.api_blue_name
+  web_blue_name      = module.elb.web_blue_name
+  api_green_name     = module.elb.api_green_name
+  web_green_name     = module.elb.web_green_name
   cluster-name       = module.ecs.cluster-name
   api-service-name   = module.ecs.api-service-name
   web-service-name   = module.ecs.web-service-name
