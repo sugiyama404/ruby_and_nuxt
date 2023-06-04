@@ -67,7 +67,7 @@ resource "aws_codepipeline" "codepipeline" {
 
     # webserver
     action {
-      name            = "Deploy1"
+      name            = "WEB_Deploy"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "CodeDeployToECS"
@@ -88,7 +88,7 @@ resource "aws_codepipeline" "codepipeline" {
 
     # apserver
     action {
-      name            = "Deploy2"
+      name            = "API_Deploy"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "CodeDeployToECS"

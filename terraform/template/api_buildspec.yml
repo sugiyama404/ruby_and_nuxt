@@ -11,9 +11,13 @@ phases:
       - API_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_API_REPOSITORY
   build:
     commands:
-      - cp terraform/template/api_appspec.yml appspec.yml
       - printf '{"Version":"1.0","ImageURI":"%s"}' $API_REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
+      - echo $ECS_API_TASK_DEFINITION_ARN
       - $(aws ecs describe-task-definition --task-definition $ECS_API_TASK_DEFINITION_ARN --query taskDefinition | jq '.containerDefinitions[0].image="<IMAGE1_NAME>"' > taskdef.json)
+      - cat taskdef.json
+      - $(aws ecs describe-task-definition --task-definition apiserver-definition --query taskDefinition | jq '.containerDefinitions[0].image="<IMAGE1_NAME>"' > taskdef.json)
+      - cat taskdef.json
+      - cp terraform/template/api_appspec.yml appspec.yml
 
 artifacts:
   files:
