@@ -2,7 +2,8 @@
 resource "aws_ecs_service" "api-service" {
   name            = "${var.api_app_name}-service"
   cluster         = aws_ecs_cluster.cluster.id
-  depends_on      = [aws_lb_listener_rule.api-blue, aws_lb_listener_rule.api-green]
+  #depends_on      = [aws_lb_listener_rule.api-blue, aws_lb_listener_rule.api-green]
+  depends_on      = [aws_lb_listener_rule.api-blue]
   task_definition = aws_ecs_task_definition.api-definition.arn
   desired_count   = 1
   # ecs exec
@@ -39,8 +40,9 @@ resource "aws_ecs_service" "api-service" {
 resource "aws_ecs_service" "web-service" {
   name    = "${var.web_app_name}-service"
   cluster = aws_ecs_cluster.cluster.id
-  depends_on = [aws_lb_listener_rule.web-blue, aws_lb_listener_rule.api-blue,
-  aws_lb_listener_rule.web-green, aws_lb_listener_rule.api-green]
+  #depends_on = [aws_lb_listener_rule.web-blue, aws_lb_listener_rule.api-blue,
+  #aws_lb_listener_rule.web-green, aws_lb_listener_rule.api-green]
+    depends_on = [aws_lb_listener_rule.web-blue, aws_lb_listener_rule.api-blue]
   task_definition = aws_ecs_task_definition.web-definition.arn
   desired_count   = 1
 
